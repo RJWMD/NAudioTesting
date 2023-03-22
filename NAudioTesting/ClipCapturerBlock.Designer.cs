@@ -63,6 +63,7 @@ namespace NAudioTesting
             this.Label.TabIndex = 4;
             this.Label.Text = "Clip capturer";
             this.Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Label.Paint += new System.Windows.Forms.PaintEventHandler(this.Label_Paint);
             // 
             // CaptureSave
             // 
@@ -127,6 +128,7 @@ namespace NAudioTesting
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ClipCapturerBlock";
             this.Size = new System.Drawing.Size(366, 218);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.ClipCapturerBlock_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.ClipLength)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

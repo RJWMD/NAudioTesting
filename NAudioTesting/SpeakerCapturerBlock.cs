@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using NAudio.Dsp;
 using NAudio;
 using NAudio.Wave;
+using System.Drawing.Imaging;
 
 namespace NAudioTesting
 {
@@ -83,6 +84,22 @@ namespace NAudioTesting
                     if(xPosition < Width * 100 && xPosition > -Width * 100 && yPosition < Height * 100 && -Height * 100 < yPosition)
                         e.Graphics.DrawLine(Pens.White, new Point(xPosition, yPosition), new Point(xPosition, 0));
                     
+                }
+            }
+
+            private void SpeakerCapturerBlock_Paint(object sender, PaintEventArgs e)
+            {
+                using (Bitmap bitMap = new Bitmap(BackgroundImage))
+                {
+                    ColorMap colorMap = new ColorMap();
+                    colorMap.OldColor = Color.FromArgb(255, 223, 113, 38);
+                    colorMap.NewColor = Color.FromArgb(255, 118, 66, 138);
+                    ImageAttributes img = new ImageAttributes();
+                    ColorMap[] mapArray = { colorMap };
+
+                    img.SetRemapTable(mapArray);
+                    e.Graphics.DrawImage(bitMap, new Rectangle(0, 0, Width, Height), 0, 0, bitMap.Width, bitMap.Height, GraphicsUnit.Pixel, img);
+
                 }
             }
         }

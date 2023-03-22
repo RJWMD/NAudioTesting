@@ -152,6 +152,7 @@ namespace NAudioTesting
             this.DoubleBuffered = true;
             this.Name = "WavePlayerBlock";
             this.Size = new System.Drawing.Size(366, 218);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.WavePlayerBlock_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.PitchController)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DurationController)).EndInit();
             this.ResumeLayout(false);

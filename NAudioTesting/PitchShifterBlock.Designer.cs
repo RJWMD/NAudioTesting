@@ -59,7 +59,7 @@ namespace NAudioTesting
             0,
             0,
             131072});
-            this.PitchShiftNum.Location = new System.Drawing.Point(56, 76);
+            this.PitchShiftNum.Location = new System.Drawing.Point(57, 76);
             this.PitchShiftNum.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PitchShiftNum.Minimum = new decimal(new int[] {
             1,
@@ -118,6 +118,8 @@ namespace NAudioTesting
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "PitchShifterBlock";
             this.Size = new System.Drawing.Size(366, 218);
+            this.Load += new System.EventHandler(this.PitchShifterBlock_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.PitchShifterBlock_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.PitchShiftNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PitchAmountScroll)).EndInit();
             this.ResumeLayout(false);

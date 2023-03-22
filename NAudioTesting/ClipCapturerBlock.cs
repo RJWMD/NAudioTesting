@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Imaging;
 
 namespace NAudioTesting
 {
@@ -62,6 +63,27 @@ namespace NAudioTesting
             private void fileVisualizer1_Load(object sender, EventArgs e)
             {
 
+            }
+
+            private void Label_Paint(object sender, PaintEventArgs e)
+            {
+
+            }
+
+            private void ClipCapturerBlock_Paint(object sender, PaintEventArgs e)
+            {
+                using (Bitmap bitMap = new Bitmap(BackgroundImage))
+                {
+                    ColorMap colorMap = new ColorMap();
+                    colorMap.OldColor = Color.FromArgb(255, 223, 113, 38);
+                    colorMap.NewColor = Color.FromArgb(255, 172, 50, 50);
+                    ImageAttributes img = new ImageAttributes();
+                    ColorMap[] mapArray = { colorMap };
+
+                    img.SetRemapTable(mapArray);
+                    e.Graphics.DrawImage(bitMap, new Rectangle(0, 0, Width, Height), 0, 0, bitMap.Width, bitMap.Height, GraphicsUnit.Pixel, img);
+
+                }
             }
         }
     }

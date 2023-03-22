@@ -82,6 +82,7 @@ namespace NAudioTesting
             this.DoubleBuffered = true;
             this.Name = "SpeakerCapturerBlock";
             this.Size = new System.Drawing.Size(366, 218);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.SpeakerCapturerBlock_Paint);
             this.ResumeLayout(false);
             this.PerformLayout();
 
