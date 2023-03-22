@@ -31,8 +31,6 @@ namespace NAudioTesting
         {
             this.components = new System.ComponentModel.Container();
             this.PlayWave = new System.Windows.Forms.Button();
-            this.WavePitchShift = new System.Windows.Forms.NumericUpDown();
-            this.WaveType = new System.Windows.Forms.ComboBox();
             this.ToolsContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.PanelRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,12 +38,15 @@ namespace NAudioTesting
             this.wavePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pitchShifterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.speakerCapturerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RecordToggle = new System.Windows.Forms.Button();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.OutputDevice = new System.Windows.Forms.ComboBox();
             this.InputDeviceMic = new System.Windows.Forms.ComboBox();
             this.StopAllAudioButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.WavePitchShift)).BeginInit();
+            this.OpenFolder = new System.Windows.Forms.FolderBrowserDialog();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.clipCapturerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PanelRightClick.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,50 +56,9 @@ namespace NAudioTesting
             this.PlayWave.Name = "PlayWave";
             this.PlayWave.Size = new System.Drawing.Size(141, 35);
             this.PlayWave.TabIndex = 0;
-            this.PlayWave.Text = "play square";
+            this.PlayWave.Text = "Load files";
             this.PlayWave.UseVisualStyleBackColor = true;
             this.PlayWave.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // WavePitchShift
-            // 
-            this.WavePitchShift.Increment = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.WavePitchShift.Location = new System.Drawing.Point(159, 17);
-            this.WavePitchShift.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.WavePitchShift.Minimum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            -2147483648});
-            this.WavePitchShift.Name = "WavePitchShift";
-            this.WavePitchShift.Size = new System.Drawing.Size(64, 26);
-            this.WavePitchShift.TabIndex = 1;
-            this.WavePitchShift.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
-            // 
-            // WaveType
-            // 
-            this.WaveType.FormattingEnabled = true;
-            this.WaveType.Items.AddRange(new object[] {
-            "Pink",
-            "White",
-            "Sweep",
-            "Sin",
-            "Square",
-            "Triangle",
-            "SawTooth"});
-            this.WaveType.Location = new System.Drawing.Point(229, 15);
-            this.WaveType.Name = "WaveType";
-            this.WaveType.Size = new System.Drawing.Size(91, 28);
-            this.WaveType.TabIndex = 2;
-            this.WaveType.Text = "Choose";
-            this.WaveType.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // ToolsContainer
             // 
@@ -132,7 +92,9 @@ namespace NAudioTesting
             this.emptyToolStripMenuItem,
             this.wavePlayerToolStripMenuItem,
             this.filePlayerToolStripMenuItem,
-            this.pitchShifterToolStripMenuItem});
+            this.pitchShifterToolStripMenuItem,
+            this.speakerCapturerToolStripMenuItem,
+            this.clipCapturerToolStripMenuItem});
             this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
             this.addNewToolStripMenuItem.Size = new System.Drawing.Size(155, 32);
             this.addNewToolStripMenuItem.Text = "Add new";
@@ -140,30 +102,37 @@ namespace NAudioTesting
             // emptyToolStripMenuItem
             // 
             this.emptyToolStripMenuItem.Name = "emptyToolStripMenuItem";
-            this.emptyToolStripMenuItem.Size = new System.Drawing.Size(209, 34);
+            this.emptyToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.emptyToolStripMenuItem.Text = "Empty";
             this.emptyToolStripMenuItem.Click += new System.EventHandler(this.emptyToolStripMenuItem_Click);
             // 
             // wavePlayerToolStripMenuItem
             // 
             this.wavePlayerToolStripMenuItem.Name = "wavePlayerToolStripMenuItem";
-            this.wavePlayerToolStripMenuItem.Size = new System.Drawing.Size(209, 34);
+            this.wavePlayerToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.wavePlayerToolStripMenuItem.Text = "Wave Player";
             this.wavePlayerToolStripMenuItem.Click += new System.EventHandler(this.wavePlayerToolStripMenuItem_Click);
             // 
             // filePlayerToolStripMenuItem
             // 
             this.filePlayerToolStripMenuItem.Name = "filePlayerToolStripMenuItem";
-            this.filePlayerToolStripMenuItem.Size = new System.Drawing.Size(209, 34);
+            this.filePlayerToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.filePlayerToolStripMenuItem.Text = "File Player";
             this.filePlayerToolStripMenuItem.Click += new System.EventHandler(this.filePlayerToolStripMenuItem_Click);
             // 
             // pitchShifterToolStripMenuItem
             // 
             this.pitchShifterToolStripMenuItem.Name = "pitchShifterToolStripMenuItem";
-            this.pitchShifterToolStripMenuItem.Size = new System.Drawing.Size(209, 34);
+            this.pitchShifterToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.pitchShifterToolStripMenuItem.Text = "Pitch Shifter";
             this.pitchShifterToolStripMenuItem.Click += new System.EventHandler(this.pitchShifterToolStripMenuItem_Click);
+            // 
+            // speakerCapturerToolStripMenuItem
+            // 
+            this.speakerCapturerToolStripMenuItem.Name = "speakerCapturerToolStripMenuItem";
+            this.speakerCapturerToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.speakerCapturerToolStripMenuItem.Text = "Speaker Capturer";
+            this.speakerCapturerToolStripMenuItem.Click += new System.EventHandler(this.speakerCapturerToolStripMenuItem_Click);
             // 
             // RecordToggle
             // 
@@ -218,6 +187,18 @@ namespace NAudioTesting
             this.StopAllAudioButton.UseVisualStyleBackColor = true;
             this.StopAllAudioButton.Click += new System.EventHandler(this.StopAllAudioButton_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 10;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // clipCapturerToolStripMenuItem
+            // 
+            this.clipCapturerToolStripMenuItem.Name = "clipCapturerToolStripMenuItem";
+            this.clipCapturerToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.clipCapturerToolStripMenuItem.Text = "Clip Capturer";
+            this.clipCapturerToolStripMenuItem.Click += new System.EventHandler(this.clipCapturerToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -229,16 +210,13 @@ namespace NAudioTesting
             this.Controls.Add(this.vScrollBar1);
             this.Controls.Add(this.RecordToggle);
             this.Controls.Add(this.ToolsContainer);
-            this.Controls.Add(this.WaveType);
-            this.Controls.Add(this.WavePitchShift);
             this.Controls.Add(this.PlayWave);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Sound Board";
             this.TransparencyKey = System.Drawing.Color.Sienna;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Click += new System.EventHandler(this.Form1_Click);
-            ((System.ComponentModel.ISupportInitialize)(this.WavePitchShift)).EndInit();
             this.PanelRightClick.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -247,9 +225,7 @@ namespace NAudioTesting
         #endregion
 
         private System.Windows.Forms.Button PlayWave;
-        private System.Windows.Forms.NumericUpDown WavePitchShift;
-        private System.Windows.Forms.ComboBox WaveType;
-        private System.Windows.Forms.FlowLayoutPanel ToolsContainer;
+        public System.Windows.Forms.FlowLayoutPanel ToolsContainer;
         private System.Windows.Forms.Button RecordToggle;
         private System.Windows.Forms.VScrollBar vScrollBar1;
         private System.Windows.Forms.ContextMenuStrip PanelRightClick;
@@ -261,6 +237,10 @@ namespace NAudioTesting
         private System.Windows.Forms.ToolStripMenuItem filePlayerToolStripMenuItem;
         private System.Windows.Forms.Button StopAllAudioButton;
         private System.Windows.Forms.ToolStripMenuItem pitchShifterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem speakerCapturerToolStripMenuItem;
+        private System.Windows.Forms.FolderBrowserDialog OpenFolder;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripMenuItem clipCapturerToolStripMenuItem;
     }
 }
 

@@ -12,10 +12,11 @@ using NAudio.Dmo;
 using NAudio.Dsp;
 using NAudio.Gui;
 using NAudio.Wave.SampleProviders;
+using System.Diagnostics;
 
 namespace NAudioTesting
 {
-    class AudioHandler
+    public class AudioHandler
     {
         public WasapiLoopbackCapture speakerCapture = new WasapiLoopbackCapture();
         public WaveOutEvent output = new WaveOutEvent();
@@ -23,12 +24,16 @@ namespace NAudioTesting
         //MixingSampleProvider mixer;
         public BufferedWaveProvider buffer;
         public WaveProvider32 waveProvider;
-        WaveMixerStream32 mixer;
+        //WaveMixerStream32 mixer;
         public MixingSampleProvider mixerProvider;
+        public BufferSaver finalOutput;
         public WaveIn waveIn;
         public WaveInEvent micRecorder;
         public List<SoundModifier> audioModifiers = new List<SoundModifier>();
         public event EventHandler stopAllSound;
+        public event EventHandler appClosed;
+        public byte[] fourierBuffer;
+
         public string[] getCaptureDevices()
         {
             MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
@@ -39,6 +44,20 @@ namespace NAudioTesting
             }
             enumerator.Dispose();
             return returnStrings;
+        }
+        public MMDevice getCaptureDevice(int id)
+        {
+            MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
+            MMDevice returnDevice = enumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active)[id];
+            enumerator.Dispose();
+            return returnDevice;
+        }
+        public MMDevice getRenderDevice(int id)
+        {
+            MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
+            MMDevice returnDevice = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active)[id];
+            enumerator.Dispose();
+            return returnDevice;
         }
         public string[] getRenderDevices()
         {
@@ -55,7 +74,8 @@ namespace NAudioTesting
         {
             output.Stop();
             output.DeviceNumber = deviceNum;
-            output.Init(mixerProvider);
+            //output.Init(mixerProvider);
+            output.Init(new BufferSaver(mixerProvider.ToWaveProvider()));
             output.Play();
             //playbackAudio();
         }
@@ -65,36 +85,32 @@ namespace NAudioTesting
         }
         public AudioHandler()
         {
-            
+            Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.RealTime;
         }
-        public void startRecording()
+
+        public void onClose()
         {
-            speakerCapture.StartRecording();
-            //waveIn.StartRecording();
-            //waveIn.StartRecording();
-            //audioBeingPlayed = new 
+            micRecorder.StopRecording();
+            micRecorder.Dispose();
+            appClosed?.Invoke(this, new EventArgs());
         }
-        public void stopRecording()
-        {
-            
-        }
+
         public void dataInOnSpeaker(object sender, WaveInEventArgs args)
         {
             buffer?.AddSamples(args.Buffer, 15, args.BytesRecorded);
         }
-        public void playbackAudio()
-        {
-            mixerProvider = new MixingSampleProvider(speakerCapture.WaveFormat)
-            {
-                ReadFully = true
-            };
-            output.Stop();
-            if(buffer != null)
-                output.Init(mixerProvider);
-            output.Play();
-            //mixer = new MixingWaveProvider32(WaveFormat.CreateIeeeFloatWaveFormat(44100, 2));
-
-        }
+        //public void playbackAudio()
+        //{
+        //    mixerProvider = new MixingSampleProvider(speakerCapture.WaveFormat)
+        //    {
+        //        ReadFully = true
+        //    };
+        //    output.Stop();
+        //    if(buffer != null)
+        //        output.Init(mixerProvider);
+        //    output.Play();
+        //    //mixer = new MixingWaveProvider32(WaveFormat.CreateIeeeFloatWaveFormat(44100, 2));
+        //}
         public void setUpMixer()
         {
             if(output.DeviceNumber == -1)
@@ -105,16 +121,20 @@ namespace NAudioTesting
             {
                 ReadFully = true
             };
+            finalOutput = new BufferSaver(mixerProvider.ToWaveProvider());
             output.Stop();
-            output.Init(mixerProvider);
+            //output.Init(mixerProvider);
+            output.Init(finalOutput);
             micRecorder = new WaveInEvent()
             {
-                WaveFormat = output.OutputWaveFormat
+                WaveFormat = output.OutputWaveFormat,
+                BufferMilliseconds = 25
             };
             micRecorder.StartRecording();
             //mixerProvider.AddMixerInput(new WaveInProvider(speakerCapture));
             mixerProvider.AddMixerInput(new WaveInProvider(micRecorder));
             output.Play();
+
         }
         public void applyModifiers()
         {
@@ -123,6 +143,7 @@ namespace NAudioTesting
             {
                 modifiedSample = modifier.applyEffect(modifiedSample);
             }
+            //modifiedSample = new CompressorEffect(this).applyEffect(modifiedSample);
             output.Stop();
             output.Init(modifiedSample);
             output.Play();

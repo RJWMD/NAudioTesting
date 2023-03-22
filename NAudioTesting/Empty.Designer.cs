@@ -31,17 +31,21 @@ namespace NAudioTesting
             /// </summary>
             private void InitializeComponent()
             {
-                this.SuspendLayout();
-                // 
-                // GridElement
-                // 
-                this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-                this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-                this.BackColor = System.Drawing.SystemColors.ControlDark;
-                this.Name = "GridElement";
-                this.Size = new System.Drawing.Size(305, 181);
-                this.Click += new System.EventHandler(this.GridElement_Click);
-                this.ResumeLayout(false);
+            this.SuspendLayout();
+            // 
+            // Empty
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.BackgroundImage = global::NAudioTesting.Properties.Resources.SoundBoardToolSlotFilePlayer;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Name = "Empty";
+            this.Size = new System.Drawing.Size(271, 145);
+            this.Click += new System.EventHandler(this.GridElement_Click);
+            this.ResumeLayout(false);
 
             }
 

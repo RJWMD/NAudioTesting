@@ -17,36 +17,61 @@ namespace NAudioTesting
 {
     namespace GridElements
     {
-        class FilePlayer
+        public class FilePlayer
         {
-            ISampleProvider providedWave;
-            AudioHandler audioHandler;
+            protected ISampleProvider providedWave;
+            protected AudioHandler audioHandler;
             string filePath;
-            MediaFoundationReader fileReader;
+            public LoopWrapper fileReader;
             public bool stackAudio = false;
-            public bool loopAudio = false;
+
+            //public long position
+            //{
+            //    get { return fileReader.Position; }
+            //    set { fileReader.Position = value; }
+            //}
+            public bool loopAudio
+            {
+                get
+                {
+                    if (fileReader != null)
+                        return fileReader.looping;
+                    else
+                        return false;
+                }
+                set
+                {
+                    if (fileReader != null)
+                        fileReader.looping = value;
+                }
+            }
 
             public FilePlayer(AudioHandler handler)
             {
                 audioHandler = handler;
             }
-            public void setFile(string path)
+            public virtual void setFile(string path)
             {
                 filePath = path;
-                fileReader = new MediaFoundationReader(filePath);
+                fileReader = new LoopWrapper(new MediaFoundationReader(filePath));
             }
-            public void playFile()//Add looping and trimming
+            public virtual void playFile()//Add looping and trimming
             {
                 if (fileReader == null)
                     return;
-                fileReader.Position = 0;
                 if(providedWave != null && !stackAudio)
                     audioHandler.removeInputFromMixer(providedWave);
                 providedWave = new MediaFoundationResampler(fileReader, Program.audioHandler.mixerProvider.WaveFormat).ToSampleProvider();
+                
                 //if(loopAudio)
+                
                 audioHandler.addInputToMixer(providedWave);
             }
-            public WaveStream getWaveStream()
+            /// <summary>
+            /// Returns a new copy of the reader
+            /// </summary>
+            /// <returns></returns>
+            public virtual WaveStream getWaveStream()
             {
                 return new MediaFoundationReader(filePath);
             }

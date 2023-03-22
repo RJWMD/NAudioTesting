@@ -15,10 +15,11 @@ using NAudio.Wave.SampleProviders;
 
 namespace NAudioTesting
 {
-    public interface SoundModifier
-    {
-        ISampleProvider applyEffect(ISampleProvider input);
+	public class ClipCapturer
+	{
+		public ClipCapturer(AudioHandler handler)
+		{
 
-
-    }
+		}
+	}
 }

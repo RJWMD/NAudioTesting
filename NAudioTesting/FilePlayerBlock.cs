@@ -14,14 +14,39 @@ namespace NAudioTesting
     {
         public partial class FilePlayerBlock : UserControl
         {
-            FilePlayer filePlayer;
+            protected FilePlayer filePlayer;
+            public FilePlayer FilePlayer
+            {
+                get { return filePlayer; }
+            }
+            LoopRequest loop;
 
+            protected FilePlayerBlock()
+            {
+                InitializeComponent();
+                FileVisualizer.clicked += visualizerClicked;
+                filePlayer = new FilePlayer(Program.audioHandler);
+            }
             public FilePlayerBlock(string path)
             {
                 InitializeComponent();
                 if(path.Contains(@"\"))
                     FileNameLabel.Text = path.Substring(path.LastIndexOf(@"\") + 1);
                 filePlayer = new FilePlayer(Program.audioHandler);
+                if(path.Contains(@"."))
+                {
+                    try
+                    {
+                        filePlayer.setFile(path);
+                        FileVisualizer.WaveStream = filePlayer.getWaveStream();
+                    }
+                    catch
+                    {
+                        //Unsupported file type given
+                        FileNameLabel.Text = "Unsupported file";
+                    }
+                }
+                FileVisualizer.clicked += visualizerClicked;
             }
             string getNameFromFile(string filename)
             {
@@ -34,20 +59,45 @@ namespace NAudioTesting
             {
 
             }
-
+            public void visualizerClicked(MouseEventArgs args)
+            {
+                if (filePlayer.fileReader == null)
+                    return;
+                float trackProgress = (args.X * 1f / FileVisualizer.Width);    
+                filePlayer.fileReader.Position = (long)(trackProgress * filePlayer.fileReader.Length);
+                FileVisualizer.startTime = DateTime.Now - new TimeSpan(0,0,0,0, (int)(filePlayer.fileReader.TotalTime.TotalMilliseconds * trackProgress));
+                playAudio();
+            }
+            public void playAudio()
+            {
+                if (loop != null)
+                    Program.loops.Remove(loop);
+                filePlayer.playFile();
+                FileVisualizer.stream = filePlayer.fileReader;
+                
+                loop = new LoopRequest(FileVisualizer.updateTracker);
+                Program.loops.Add(loop);
+            }
             private void PlayAudio_Click(object sender, EventArgs e)
             {
-                filePlayer.playFile();
+                if (filePlayer?.fileReader == null)
+                    return;
+                filePlayer.fileReader.Position = (long)(filePlayer.fileReader.startPoint * filePlayer.fileReader.Length);
+                FileVisualizer.startTime = DateTime.Now;
+                playAudio();
             }
 
             private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
             {
                 filePlayer.setFile(ChooseFile.FileName);
                 getNameFromFile(ChooseFile.FileName);
-                FileVisualiser.WaveStream = filePlayer.getWaveStream();
+                FileVisualizer.WaveStream = filePlayer.getWaveStream();
+                FileVisualizer.stream = filePlayer.fileReader;
+                FileVisualizer.generateMap();
+                FileVisualizer.Refresh();
             }
 
-            private void FileNameLabel_DoubleClick(object sender, EventArgs e)
+            protected virtual void FileNameLabel_DoubleClick(object sender, EventArgs e)
             {
                 ChooseFile.ShowDialog();
             }
@@ -60,6 +110,7 @@ namespace NAudioTesting
             private void LoopCheckBox_Click(object sender, EventArgs e)
             {
                 filePlayer.loopAudio = LoopCheckBox.Checked;
+                FileVisualizer.looping = LoopCheckBox.Checked;
             }
         }
     }

@@ -78,6 +78,28 @@
   <ItemGroup>
     <Compile Include="AudioHandler.cs" />
     <Compile Include="AudioProcessor.cs" />
+    <Compile Include="BufferSaver.cs" />
+    <Compile Include="ClipCapturer.cs" />
+    <Compile Include="ClipCapturerBlock.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ClipCapturerBlock.Designer.cs">
+      <DependentUpon>ClipCapturerBlock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FeedVisualizer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FeedVisualizer.Designer.cs">
+      <DependentUpon>FeedVisualizer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileVisualizer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FileVisualizer.Designer.cs">
+      <DependentUpon>FileVisualizer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompressorEffect.cs" />
+    <Compile Include="EchoEffect.cs" />
     <Compile Include="FilePlayer.cs" />
     <Compile Include="FilePlayerBlock.cs">
       <SubType>UserControl</SubType>
@@ -85,6 +107,21 @@
     <Compile Include="FilePlayerBlock.Designer.cs">
       <DependentUpon>FilePlayerBlock.cs</DependentUpon>
     </Compile>
+    <Compile Include="InterceptKeys.cs" />
+    <Compile Include="KeybindListing.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KeybindListing.Designer.cs">
+      <DependentUpon>KeybindListing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KeybindSetter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KeybindSetter.Designer.cs">
+      <DependentUpon>KeybindSetter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoopRequest.cs" />
+    <Compile Include="LoopWrapper.cs" />
     <Compile Include="PitchShifter.cs" />
     <Compile Include="PitchShifterBlock.cs">
       <SubType>UserControl</SubType>
@@ -92,12 +129,21 @@
     <Compile Include="PitchShifterBlock.Designer.cs">
       <DependentUpon>PitchShifterBlock.cs</DependentUpon>
     </Compile>
+    <Compile Include="SampleAggregator.cs" />
     <Compile Include="SoundModifier.cs" />
+    <Compile Include="SpeakerCapturer.cs" />
     <Compile Include="SpeakerCapturerBlock.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="SpeakerCapturerBlock.Designer.cs">
       <DependentUpon>SpeakerCapturerBlock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TempFilePlayer.cs" />
+    <Compile Include="TempFilePlayerBlock.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TempFilePlayerBlock.Designer.cs">
+      <DependentUpon>TempFilePlayerBlock.cs</DependentUpon>
     </Compile>
     <Compile Include="WavePlayer.cs" />
     <Compile Include="MainForm.cs">
@@ -120,8 +166,23 @@
     <Compile Include="WavePlayerBlock.Designer.cs">
       <DependentUpon>WavePlayerBlock.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ClipCapturerBlock.resx">
+      <DependentUpon>ClipCapturerBlock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeedVisualizer.resx">
+      <DependentUpon>FeedVisualizer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FilePlayerBlock.resx">
       <DependentUpon>FilePlayerBlock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileVisualizer.resx">
+      <DependentUpon>FileVisualizer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KeybindListing.resx">
+      <DependentUpon>KeybindListing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KeybindSetter.resx">
+      <DependentUpon>KeybindSetter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
