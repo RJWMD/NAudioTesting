@@ -18,7 +18,7 @@ namespace NAudioTesting
     public interface SoundModifier
     {
         ISampleProvider applyEffect(ISampleProvider input);
-
+        //Need to add a method to remove the effect
 
     }
 }

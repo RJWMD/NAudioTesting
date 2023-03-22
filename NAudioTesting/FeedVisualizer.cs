@@ -25,7 +25,7 @@ namespace NAudioTesting
         public (float min, float max)[] savedMap;
         public int position = 0;
         int partialDataProgress = 0;
-        public int samplesPerPixerl;
+        public int samplesPerPixel;
 
 
         protected override void OnPaint(PaintEventArgs e)
@@ -44,6 +44,12 @@ namespace NAudioTesting
             }
             base.OnPaint(e);
         }
+
+        public void ClearDisplayMap()
+        {
+            savedMap = new (float min, float max)[Width];
+        }
+
         List<byte> partialData = new List<byte>();
         int bytesPerPixel
         {

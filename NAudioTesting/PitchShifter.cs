@@ -18,7 +18,7 @@ namespace NAudioTesting
     class PitchShifter : SoundModifier
     {
         public float amount;
-        public SmbPitchShiftingSampleProvider pitchShifter;
+        //public SmbPitchShiftingSampleProvider pitchShifter;
         public AudioHandler audioHandler;
         SmbPitchShiftingSampleProvider shiftedPitch;
 

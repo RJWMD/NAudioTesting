@@ -26,7 +26,7 @@ namespace NAudioTesting
         public WaveProvider32 waveProvider;
         //WaveMixerStream32 mixer;
         public MixingSampleProvider mixerProvider;
-        public BufferSaver finalOutput;
+        //public BufferSaver finalOutput;
         public WaveIn waveIn;
         public WaveInEvent micRecorder;
         public List<SoundModifier> audioModifiers = new List<SoundModifier>();
@@ -99,18 +99,7 @@ namespace NAudioTesting
         {
             buffer?.AddSamples(args.Buffer, 15, args.BytesRecorded);
         }
-        //public void playbackAudio()
-        //{
-        //    mixerProvider = new MixingSampleProvider(speakerCapture.WaveFormat)
-        //    {
-        //        ReadFully = true
-        //    };
-        //    output.Stop();
-        //    if(buffer != null)
-        //        output.Init(mixerProvider);
-        //    output.Play();
-        //    //mixer = new MixingWaveProvider32(WaveFormat.CreateIeeeFloatWaveFormat(44100, 2));
-        //}
+
         public void setUpMixer()
         {
             if(output.DeviceNumber == -1)
@@ -121,10 +110,10 @@ namespace NAudioTesting
             {
                 ReadFully = true
             };
-            finalOutput = new BufferSaver(mixerProvider.ToWaveProvider());
+            //finalOutput = new BufferSaver(mixerProvider.ToWaveProvider());
             output.Stop();
             //output.Init(mixerProvider);
-            output.Init(finalOutput);
+            output.Init(mixerProvider);
             micRecorder = new WaveInEvent()
             {
                 WaveFormat = output.OutputWaveFormat,
@@ -169,23 +158,7 @@ namespace NAudioTesting
 
             stopAllSound?.Invoke(this, new EventArgs());
         }
-        public void playWave(int frequency = 500, int wave = 3, bool limitDuration = false, double duration = 0)
-        {
-            SignalGenerator sineWave = new SignalGenerator(output.OutputWaveFormat.SampleRate, output.OutputWaveFormat.Channels)
-            {
-                Gain = .2,
-                Frequency = frequency,
-                Type = (SignalGeneratorType)wave,
-                SweepLengthSecs = .5,
-                FrequencyEnd = frequency * 2
-            };
-            if (limitDuration)
-                mixerProvider.AddMixerInput(sineWave.Take(TimeSpan.FromSeconds(duration)));
-            else
-                mixerProvider.AddMixerInput(sineWave);
 
-            //Might have to make a custom class and override the read functionality?
-        }
         public void playFromWaveProvider(IWaveProvider input)
         {
             

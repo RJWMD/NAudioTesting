@@ -15,21 +15,34 @@ namespace NAudioTesting
     {
         public partial class ClipCapturerBlock : UserControl
         {
-            public bool capturing = false;
+            public bool capturing
+            {
+                get
+                {
+                    return _capturing;
+                }
+                set
+                {
+                    capturer.recording = value;
+                    _capturing = value;
+                }
+            }
+
+            private bool _capturing;
             ClipCapturer capturer;
 
             public ClipCapturerBlock()
             {
                 InitializeComponent();
                 capturer = new ClipCapturer(Program.audioHandler);
-                Program.audioHandler.finalOutput.newDataChunk += feedVisualizer1.addNewData;
+                capturer.buffer.newDataChunk += feedVisualizer1.addNewData;
                 //Program.audioHandler.finalOutput.newData += feedVisualizer1.newPartialData;
-                feedVisualizer1.format = Program.audioHandler.finalOutput.WaveFormat;
+                feedVisualizer1.format = capturer.buffer.WaveFormat;
                 Program.audioHandler.stopAllSound += setEvents;
             }
             public void setEvents(object sender, EventArgs args)
             {
-                Program.audioHandler.finalOutput.newDataChunk += feedVisualizer1.addNewData;
+                capturer.buffer.newDataChunk += feedVisualizer1.addNewData;
             }
 
             private void Capture_Click(object sender, EventArgs e)
@@ -58,6 +71,8 @@ namespace NAudioTesting
             private void ClipLength_ValueChanged(object sender, EventArgs e)
             {
                 capturer.clipLength = (float)ClipLength.Value;
+                feedVisualizer1.ClearDisplayMap();
+                feedVisualizer1.bufferTime = (float)ClipLength.Value;
             }
 
             private void fileVisualizer1_Load(object sender, EventArgs e)

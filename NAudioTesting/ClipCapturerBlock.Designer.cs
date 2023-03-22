@@ -80,6 +80,11 @@ namespace NAudioTesting
             // 
             this.ClipLength.Location = new System.Drawing.Point(206, 95);
             this.ClipLength.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ClipLength.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.ClipLength.Name = "ClipLength";
             this.ClipLength.Size = new System.Drawing.Size(68, 26);
             this.ClipLength.TabIndex = 6;

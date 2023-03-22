@@ -12,12 +12,14 @@ namespace NAudioTesting
     {
         public IWaveProvider input;
         public byte[] savedBuffer;
-        public float bufferLength = 5;
+        public float bufferLength = 15;
         int bufferLocation;
         public Action<byte[], int, int> newDataChunk;
         public Action<byte[], int, int> newData;
         public Action<byte[], int, int> sampleCompleted;
         //public RawSourceWaveStream buffer;
+
+        public bool recording;
 
         public WaveFormat WaveFormat
         {
@@ -26,8 +28,21 @@ namespace NAudioTesting
         public BufferSaver(IWaveProvider input)
         {
             this.input = input;
-            savedBuffer = new byte[(int)(bufferLength * input.WaveFormat.AverageBytesPerSecond)];
+            savedBuffer = new byte[(int)(bufferLength * input.WaveFormat.AverageBytesPerSecond + 1)];
         }
+
+        public void changeBufferLength(float newLength)
+        {
+            byte[] newBuffer = new byte[(int)(newLength * input.WaveFormat.AverageBytesPerSecond + 1)];
+            for(int i = 0; i < bufferLength; i++)
+            {
+                newBuffer[i] = savedBuffer[(bufferLocation + i) % savedBuffer.Length];
+            }
+            savedBuffer = newBuffer;
+            bufferLocation = 0;
+            bufferLength = newLength;
+        }
+
         //public BufferSaver(ISampleProvider input)
         //{
         //    this.input = input;
@@ -37,6 +52,10 @@ namespace NAudioTesting
         //}
         public int Read(byte[] buffer, int offset, int count)
         {
+            if (!recording)
+                return input.Read(buffer, offset, count);
+            //Might want to make the read sections as small as possible, so make it repeatedly call read with blocks of 2 eventually?
+
             //int bytesRead = 0;
             for (int i = 0; i < buffer.Length; i++)
             {

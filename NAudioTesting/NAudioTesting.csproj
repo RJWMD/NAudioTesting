@@ -79,6 +79,7 @@
     <Compile Include="AudioHandler.cs" />
     <Compile Include="AudioProcessor.cs" />
     <Compile Include="BufferSaver.cs" />
+    <Compile Include="BufferSaverModifier.cs" />
     <Compile Include="ClipCapturer.cs" />
     <Compile Include="ClipCapturerBlock.cs">
       <SubType>UserControl</SubType>

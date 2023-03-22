@@ -13,22 +13,50 @@ namespace NAudioTesting
     class ClipCapturer
     {
         AudioHandler audioHandler;
-        public float clipLength = 30;
-        ISampleProvider savedBuffer;
-        ISampleProvider liveBuffer
+        public float clipLength
+        {
+            set
+            {
+                _clipLength = value;
+                //buffer.bufferLength = value;
+                buffer.changeBufferLength(value);
+            }
+            get
+            {
+                return buffer.bufferLength;
+            }
+        }
+        private float _clipLength = 15;
+
+        public BufferSaver buffer
         {
             get
             {
-                //Maybe make another mixer for buffers or something
-                return audioHandler.mixerProvider.Take(TimeSpan.FromSeconds(clipLength));
-                //Will need to use skip to get to just the last 30 seconds
+                return modifier.bufferSaver;
             }
         }
-        public bool recording = false;
+        public BufferSaverModifier modifier;
+
+        public bool recording
+        {
+            get
+            {
+                return buffer.recording;
+            }
+            set
+            {
+                buffer.recording = value;
+            }
+        }
+
 
         public ClipCapturer(AudioHandler audioHandler)
         {
             this.audioHandler = audioHandler;
+            modifier = new BufferSaverModifier(audioHandler);
+
+            audioHandler.audioModifiers.Add(modifier);
+            audioHandler.applyModifiers();
             //visualizerAmplitudes = new (int min, int max)[(int)((audioHandler.mixerProvider.WaveFormat.SampleRate * bufferLength) + 0.5f)];
             
         }//Needs to not capture itself
@@ -47,7 +75,7 @@ namespace NAudioTesting
         public void saveRecording()
         {
             GridElements.TempFilePlayerBlock newBlock = new GridElements.TempFilePlayerBlock();
-            newBlock.FilePlayer.fileReader = new LoopWrapper(audioHandler.finalOutput.exportBuffer());
+            newBlock.FilePlayer.fileReader = new LoopWrapper(buffer.exportBuffer());
             MainForm.main.ToolsContainer.Controls.Add(newBlock);
             newBlock.FileVisualizer.generateMap();
             newBlock.FileVisualizer.WaveStream = newBlock.FilePlayer.getWaveStream();
