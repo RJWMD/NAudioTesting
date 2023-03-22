@@ -43,7 +43,7 @@ namespace NAudioTesting
             // 
             // PlayWave
             // 
-            this.PlayWave.Location = new System.Drawing.Point(30, 33);
+            this.PlayWave.Location = new System.Drawing.Point(67, 55);
             this.PlayWave.Name = "PlayWave";
             this.PlayWave.Size = new System.Drawing.Size(101, 72);
             this.PlayWave.TabIndex = 0;
@@ -58,7 +58,7 @@ namespace NAudioTesting
             0,
             0,
             0});
-            this.PitchController.Location = new System.Drawing.Point(137, 45);
+            this.PitchController.Location = new System.Drawing.Point(174, 57);
             this.PitchController.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -85,7 +85,7 @@ namespace NAudioTesting
             "Square",
             "Triangle",
             "SawTooth"});
-            this.WaveTypeController.Location = new System.Drawing.Point(137, 77);
+            this.WaveTypeController.Location = new System.Drawing.Point(174, 89);
             this.WaveTypeController.Name = "WaveTypeController";
             this.WaveTypeController.Size = new System.Drawing.Size(120, 28);
             this.WaveTypeController.TabIndex = 2;
@@ -96,7 +96,8 @@ namespace NAudioTesting
             // 
             this.PitchLabel.AutoSize = true;
             this.PitchLabel.BackColor = System.Drawing.Color.Transparent;
-            this.PitchLabel.Location = new System.Drawing.Point(137, 22);
+            this.PitchLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.PitchLabel.Location = new System.Drawing.Point(174, 34);
             this.PitchLabel.Name = "PitchLabel";
             this.PitchLabel.Size = new System.Drawing.Size(44, 20);
             this.PitchLabel.TabIndex = 3;
@@ -105,19 +106,21 @@ namespace NAudioTesting
             // DurationCheckbox
             // 
             this.DurationCheckbox.AutoSize = true;
-            this.DurationCheckbox.Location = new System.Drawing.Point(30, 121);
+            this.DurationCheckbox.BackColor = System.Drawing.Color.Transparent;
+            this.DurationCheckbox.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.DurationCheckbox.Location = new System.Drawing.Point(67, 133);
             this.DurationCheckbox.Name = "DurationCheckbox";
             this.DurationCheckbox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.DurationCheckbox.Size = new System.Drawing.Size(96, 24);
             this.DurationCheckbox.TabIndex = 5;
             this.DurationCheckbox.Text = "Duration";
-            this.DurationCheckbox.UseVisualStyleBackColor = true;
+            this.DurationCheckbox.UseVisualStyleBackColor = false;
             this.DurationCheckbox.CheckedChanged += new System.EventHandler(this.DurationCheckbox_CheckedChanged);
             // 
             // DurationController
             // 
             this.DurationController.DecimalPlaces = 4;
-            this.DurationController.Location = new System.Drawing.Point(137, 119);
+            this.DurationController.Location = new System.Drawing.Point(174, 131);
             this.DurationController.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -133,19 +136,22 @@ namespace NAudioTesting
             0});
             this.DurationController.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged_1);
             // 
-            // WavePlayer
+            // WavePlayerBlock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.BackgroundImage = global::NAudioTesting.Properties.Resources.SoundBoardToolSlotFilePlayer;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Controls.Add(this.DurationController);
             this.Controls.Add(this.DurationCheckbox);
             this.Controls.Add(this.PitchLabel);
             this.Controls.Add(this.WaveTypeController);
             this.Controls.Add(this.PitchController);
             this.Controls.Add(this.PlayWave);
-            this.Name = "WavePlayer";
-            this.Size = new System.Drawing.Size(305, 181);
+            this.DoubleBuffered = true;
+            this.Name = "WavePlayerBlock";
+            this.Size = new System.Drawing.Size(366, 218);
             ((System.ComponentModel.ISupportInitialize)(this.PitchController)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DurationController)).EndInit();
             this.ResumeLayout(false);

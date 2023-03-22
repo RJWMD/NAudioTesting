@@ -42,10 +42,12 @@ namespace NAudioTesting
             // PitchShifterLabel
             // 
             this.PitchShifterLabel.AutoSize = true;
+            this.PitchShifterLabel.BackColor = System.Drawing.Color.Transparent;
             this.PitchShifterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.PitchShifterLabel.Location = new System.Drawing.Point(78, 8);
+            this.PitchShifterLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.PitchShifterLabel.Location = new System.Drawing.Point(125, 38);
             this.PitchShifterLabel.Name = "PitchShifterLabel";
-            this.PitchShifterLabel.Size = new System.Drawing.Size(101, 20);
+            this.PitchShifterLabel.Size = new System.Drawing.Size(116, 25);
             this.PitchShifterLabel.TabIndex = 0;
             this.PitchShifterLabel.Text = "Pitch Shifter";
             // 
@@ -57,7 +59,7 @@ namespace NAudioTesting
             0,
             0,
             131072});
-            this.PitchShiftNum.Location = new System.Drawing.Point(20, 70);
+            this.PitchShiftNum.Location = new System.Drawing.Point(56, 76);
             this.PitchShiftNum.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PitchShiftNum.Minimum = new decimal(new int[] {
             1,
@@ -65,7 +67,7 @@ namespace NAudioTesting
             0,
             393216});
             this.PitchShiftNum.Name = "PitchShiftNum";
-            this.PitchShiftNum.Size = new System.Drawing.Size(76, 22);
+            this.PitchShiftNum.Size = new System.Drawing.Size(86, 26);
             this.PitchShiftNum.TabIndex = 1;
             this.PitchShiftNum.Value = new decimal(new int[] {
             1,
@@ -76,12 +78,13 @@ namespace NAudioTesting
             // 
             // PitchAmountScroll
             // 
-            this.PitchAmountScroll.Location = new System.Drawing.Point(102, 70);
+            this.PitchAmountScroll.BackColor = System.Drawing.Color.Black;
+            this.PitchAmountScroll.Location = new System.Drawing.Point(149, 76);
             this.PitchAmountScroll.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PitchAmountScroll.Maximum = 1000;
             this.PitchAmountScroll.Minimum = -1000;
             this.PitchAmountScroll.Name = "PitchAmountScroll";
-            this.PitchAmountScroll.Size = new System.Drawing.Size(152, 56);
+            this.PitchAmountScroll.Size = new System.Drawing.Size(171, 69);
             this.PitchAmountScroll.TabIndex = 2;
             this.PitchAmountScroll.Value = 1;
             this.PitchAmountScroll.Scroll += new System.EventHandler(this.trackBar1_Scroll);
@@ -89,21 +92,24 @@ namespace NAudioTesting
             // ActiveCheckbox
             // 
             this.ActiveCheckbox.AutoSize = true;
-            this.ActiveCheckbox.Location = new System.Drawing.Point(20, 107);
+            this.ActiveCheckbox.BackColor = System.Drawing.Color.Transparent;
+            this.ActiveCheckbox.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ActiveCheckbox.Location = new System.Drawing.Point(56, 122);
             this.ActiveCheckbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ActiveCheckbox.Name = "ActiveCheckbox";
-            this.ActiveCheckbox.Size = new System.Drawing.Size(68, 21);
+            this.ActiveCheckbox.Size = new System.Drawing.Size(78, 24);
             this.ActiveCheckbox.TabIndex = 3;
             this.ActiveCheckbox.Text = "Active";
-            this.ActiveCheckbox.UseVisualStyleBackColor = true;
+            this.ActiveCheckbox.UseVisualStyleBackColor = false;
             this.ActiveCheckbox.CheckedChanged += new System.EventHandler(this.ActiveCheckbox_CheckedChanged);
             // 
             // PitchShifterBlock
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BackgroundImage = global::NAudioTesting.Properties.Resources.SoundBoardToolSlotFilePlayer;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Controls.Add(this.ActiveCheckbox);
             this.Controls.Add(this.PitchAmountScroll);
             this.Controls.Add(this.PitchShiftNum);
@@ -111,7 +117,7 @@ namespace NAudioTesting
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "PitchShifterBlock";
-            this.Size = new System.Drawing.Size(271, 145);
+            this.Size = new System.Drawing.Size(366, 218);
             ((System.ComponentModel.ISupportInitialize)(this.PitchShiftNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PitchAmountScroll)).EndInit();
             this.ResumeLayout(false);

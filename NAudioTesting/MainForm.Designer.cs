@@ -39,6 +39,7 @@ namespace NAudioTesting
             this.filePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pitchShifterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speakerCapturerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clipCapturerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RecordToggle = new System.Windows.Forms.Button();
             this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
             this.OutputDevice = new System.Windows.Forms.ComboBox();
@@ -46,13 +47,12 @@ namespace NAudioTesting
             this.StopAllAudioButton = new System.Windows.Forms.Button();
             this.OpenFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.clipCapturerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PanelRightClick.SuspendLayout();
             this.SuspendLayout();
             // 
             // PlayWave
             // 
-            this.PlayWave.Location = new System.Drawing.Point(12, 12);
+            this.PlayWave.Location = new System.Drawing.Point(27, 12);
             this.PlayWave.Name = "PlayWave";
             this.PlayWave.Size = new System.Drawing.Size(141, 35);
             this.PlayWave.TabIndex = 0;
@@ -66,12 +66,12 @@ namespace NAudioTesting
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ToolsContainer.AutoScroll = true;
-            this.ToolsContainer.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.ToolsContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(19)))), ((int)(((byte)(19)))));
             this.ToolsContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ToolsContainer.ContextMenuStrip = this.PanelRightClick;
             this.ToolsContainer.Location = new System.Drawing.Point(27, 57);
             this.ToolsContainer.Name = "ToolsContainer";
-            this.ToolsContainer.Size = new System.Drawing.Size(760, 347);
+            this.ToolsContainer.Size = new System.Drawing.Size(765, 347);
             this.ToolsContainer.TabIndex = 0;
             this.ToolsContainer.Scroll += new System.Windows.Forms.ScrollEventHandler(this.flowLayoutPanel1_Scroll);
             this.ToolsContainer.DragDrop += new System.Windows.Forms.DragEventHandler(this.ToolsContainer_DragDrop);
@@ -102,37 +102,44 @@ namespace NAudioTesting
             // emptyToolStripMenuItem
             // 
             this.emptyToolStripMenuItem.Name = "emptyToolStripMenuItem";
-            this.emptyToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.emptyToolStripMenuItem.Size = new System.Drawing.Size(250, 34);
             this.emptyToolStripMenuItem.Text = "Empty";
             this.emptyToolStripMenuItem.Click += new System.EventHandler(this.emptyToolStripMenuItem_Click);
             // 
             // wavePlayerToolStripMenuItem
             // 
             this.wavePlayerToolStripMenuItem.Name = "wavePlayerToolStripMenuItem";
-            this.wavePlayerToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.wavePlayerToolStripMenuItem.Size = new System.Drawing.Size(250, 34);
             this.wavePlayerToolStripMenuItem.Text = "Wave Player";
             this.wavePlayerToolStripMenuItem.Click += new System.EventHandler(this.wavePlayerToolStripMenuItem_Click);
             // 
             // filePlayerToolStripMenuItem
             // 
             this.filePlayerToolStripMenuItem.Name = "filePlayerToolStripMenuItem";
-            this.filePlayerToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.filePlayerToolStripMenuItem.Size = new System.Drawing.Size(250, 34);
             this.filePlayerToolStripMenuItem.Text = "File Player";
             this.filePlayerToolStripMenuItem.Click += new System.EventHandler(this.filePlayerToolStripMenuItem_Click);
             // 
             // pitchShifterToolStripMenuItem
             // 
             this.pitchShifterToolStripMenuItem.Name = "pitchShifterToolStripMenuItem";
-            this.pitchShifterToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.pitchShifterToolStripMenuItem.Size = new System.Drawing.Size(250, 34);
             this.pitchShifterToolStripMenuItem.Text = "Pitch Shifter";
             this.pitchShifterToolStripMenuItem.Click += new System.EventHandler(this.pitchShifterToolStripMenuItem_Click);
             // 
             // speakerCapturerToolStripMenuItem
             // 
             this.speakerCapturerToolStripMenuItem.Name = "speakerCapturerToolStripMenuItem";
-            this.speakerCapturerToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.speakerCapturerToolStripMenuItem.Size = new System.Drawing.Size(250, 34);
             this.speakerCapturerToolStripMenuItem.Text = "Speaker Capturer";
             this.speakerCapturerToolStripMenuItem.Click += new System.EventHandler(this.speakerCapturerToolStripMenuItem_Click);
+            // 
+            // clipCapturerToolStripMenuItem
+            // 
+            this.clipCapturerToolStripMenuItem.Name = "clipCapturerToolStripMenuItem";
+            this.clipCapturerToolStripMenuItem.Size = new System.Drawing.Size(250, 34);
+            this.clipCapturerToolStripMenuItem.Text = "Clip Capturer";
+            this.clipCapturerToolStripMenuItem.Click += new System.EventHandler(this.clipCapturerToolStripMenuItem_Click);
             // 
             // RecordToggle
             // 
@@ -192,17 +199,11 @@ namespace NAudioTesting
             this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // clipCapturerToolStripMenuItem
-            // 
-            this.clipCapturerToolStripMenuItem.Name = "clipCapturerToolStripMenuItem";
-            this.clipCapturerToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.clipCapturerToolStripMenuItem.Text = "Clip Capturer";
-            this.clipCapturerToolStripMenuItem.Click += new System.EventHandler(this.clipCapturerToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(48)))), ((int)(((byte)(55)))));
             this.ClientSize = new System.Drawing.Size(855, 450);
             this.Controls.Add(this.StopAllAudioButton);
             this.Controls.Add(this.InputDeviceMic);

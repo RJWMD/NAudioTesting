@@ -41,9 +41,9 @@ namespace NAudioTesting
             this.SpeakerInputDropdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SpeakerInputDropdown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.SpeakerInputDropdown.FormattingEnabled = true;
-            this.SpeakerInputDropdown.Location = new System.Drawing.Point(19, 150);
+            this.SpeakerInputDropdown.Location = new System.Drawing.Point(50, 150);
             this.SpeakerInputDropdown.Name = "SpeakerInputDropdown";
-            this.SpeakerInputDropdown.Size = new System.Drawing.Size(268, 28);
+            this.SpeakerInputDropdown.Size = new System.Drawing.Size(258, 28);
             this.SpeakerInputDropdown.TabIndex = 0;
             this.SpeakerInputDropdown.SelectedIndexChanged += new System.EventHandler(this.SpeakerInputDropdown_SelectedIndexChanged);
             this.SpeakerInputDropdown.MouseEnter += new System.EventHandler(this.SpeakerInputDropdown_MouseEnter);
@@ -51,8 +51,10 @@ namespace NAudioTesting
             // SpeakerInputLabel
             // 
             this.SpeakerInputLabel.AutoSize = true;
+            this.SpeakerInputLabel.BackColor = System.Drawing.Color.Transparent;
             this.SpeakerInputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.SpeakerInputLabel.Location = new System.Drawing.Point(68, 9);
+            this.SpeakerInputLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.SpeakerInputLabel.Location = new System.Drawing.Point(104, 24);
             this.SpeakerInputLabel.Name = "SpeakerInputLabel";
             this.SpeakerInputLabel.Size = new System.Drawing.Size(156, 25);
             this.SpeakerInputLabel.TabIndex = 2;
@@ -61,9 +63,9 @@ namespace NAudioTesting
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel1.Location = new System.Drawing.Point(19, 37);
+            this.panel1.Location = new System.Drawing.Point(50, 52);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(267, 107);
+            this.panel1.Size = new System.Drawing.Size(258, 92);
             this.panel1.TabIndex = 3;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -72,11 +74,14 @@ namespace NAudioTesting
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.BackgroundImage = global::NAudioTesting.Properties.Resources.SoundBoardToolSlotFilePlayer;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.SpeakerInputLabel);
             this.Controls.Add(this.SpeakerInputDropdown);
+            this.DoubleBuffered = true;
             this.Name = "SpeakerCapturerBlock";
-            this.Size = new System.Drawing.Size(305, 181);
+            this.Size = new System.Drawing.Size(366, 218);
             this.ResumeLayout(false);
             this.PerformLayout();
 
