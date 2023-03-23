@@ -22,7 +22,7 @@ namespace NAudioTesting
         public WaveOutEvent output = new WaveOutEvent();
         public List<IWaveProvider> allAudioBeingPlayed;
         //MixingSampleProvider mixer;
-        public BufferedWaveProvider buffer;
+        //public BufferedWaveProvider buffer;
         public WaveProvider32 waveProvider;
         //WaveMixerStream32 mixer;
         public MixingSampleProvider mixerProvider;
@@ -95,10 +95,10 @@ namespace NAudioTesting
             appClosed?.Invoke(this, new EventArgs());
         }
 
-        public void dataInOnSpeaker(object sender, WaveInEventArgs args)
-        {
-            buffer?.AddSamples(args.Buffer, 15, args.BytesRecorded);
-        }
+        //public void dataInOnSpeaker(object sender, WaveInEventArgs args)
+        //{
+        //    buffer?.AddSamples(args.Buffer, 15, args.BytesRecorded);
+        //}
 
         public void setUpMixer()
         {
