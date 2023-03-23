@@ -48,6 +48,7 @@ namespace NAudioTesting
             // saveDialog
             // 
             this.saveDialog.Filter = "wav files (*.wav)|*.wav";
+            this.saveDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveDialog_FileOk);
             // 
             // contextMenuStrip1
             // 

@@ -49,6 +49,11 @@ namespace NAudioTesting
             {
                 DeleteBarItem();
             }
+
+            private void saveDialog_FileOk(object sender, CancelEventArgs e)
+            {
+                saveFile(sender, e);
+            }
         }
     }
 }
