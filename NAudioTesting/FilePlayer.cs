@@ -17,7 +17,7 @@ namespace NAudioTesting
 {
     namespace GridElements
     {
-        public class FilePlayer
+        public class FilePlayer : IDisposable
         {
             protected ISampleProvider providedWave;
             protected AudioHandler audioHandler;
@@ -74,6 +74,18 @@ namespace NAudioTesting
             public virtual WaveStream getWaveStream()
             {
                 return new MediaFoundationReader(filePath);
+            }
+
+            public virtual void Dispose()
+            {
+                fileReader.DeleteStream();
+                fileReader.Close();
+                fileReader.Dispose();
+                fileReader = null;
+                audioHandler.removeInputFromMixer(providedWave);
+                providedWave = null;
+                
+                
             }
         }
     }

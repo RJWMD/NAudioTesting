@@ -16,7 +16,13 @@ namespace NAudioTesting
         public bool looping = false;
         public override long Length
         {
-            get { return sourceStream.Length; }
+            get 
+            {
+                if (sourceStream != null)
+                    return sourceStream.Length;
+                else
+                    return 0;
+            }
         }
         public override long Position
         {
@@ -87,7 +93,20 @@ namespace NAudioTesting
         }
         public override WaveFormat WaveFormat
         {
-            get { return sourceStream.WaveFormat; }
+            get 
+            {
+                if (sourceStream != null)
+                    return sourceStream.WaveFormat;
+                else
+                    return null;
+            }
+        }
+
+        public void DeleteStream()
+        {
+            sourceStream.Close();
+            sourceStream.Dispose();
+            sourceStream = null;
         }
 
     }

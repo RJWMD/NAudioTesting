@@ -75,9 +75,9 @@ namespace NAudioTesting
             output.Stop();
             output.DeviceNumber = deviceNum;
             //output.Init(mixerProvider);
-            output.Init(new BufferSaver(mixerProvider.ToWaveProvider()));
-            output.Play();
-            //playbackAudio();
+            //output.Init(new BufferSaver(mixerProvider.ToWaveProvider()));
+            //output.Init(mixerProvider);
+            applyModifiers();
         }
         public void addInputDevice(int deviceNum)
         {
@@ -113,7 +113,7 @@ namespace NAudioTesting
             //finalOutput = new BufferSaver(mixerProvider.ToWaveProvider());
             output.Stop();
             //output.Init(mixerProvider);
-            output.Init(mixerProvider);
+            output.Init(mixerProvider.ToWaveProvider());
             micRecorder = new WaveInEvent()
             {
                 WaveFormat = output.OutputWaveFormat,

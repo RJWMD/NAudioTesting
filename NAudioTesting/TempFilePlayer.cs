@@ -57,6 +57,11 @@ namespace NAudioTesting
                 fileReader.CopyTo(returnStream);
                 return new RawSourceWaveStream(returnStream, fileReader.WaveFormat);
             }
+
+            public override void Dispose()
+            {
+                base.Dispose();   
+            }
         }
 
     }

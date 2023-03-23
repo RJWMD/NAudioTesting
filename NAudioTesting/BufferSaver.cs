@@ -12,7 +12,7 @@ namespace NAudioTesting
     {
         public IWaveProvider input;
         public byte[] savedBuffer;
-        public float bufferLength = 15;
+        public float bufferLength = 5;
         int bufferLocation;
         public Action<byte[], int, int> newDataChunk;
         public Action<byte[], int, int> newData;
@@ -28,12 +28,12 @@ namespace NAudioTesting
         public BufferSaver(IWaveProvider input)
         {
             this.input = input;
-            savedBuffer = new byte[(int)(bufferLength * input.WaveFormat.AverageBytesPerSecond + 1)];
+            savedBuffer = new byte[(int)(bufferLength * WaveFormat.AverageBytesPerSecond + 0)];
         }
 
         public void changeBufferLength(float newLength)
         {
-            byte[] newBuffer = new byte[(int)(newLength * input.WaveFormat.AverageBytesPerSecond + 1)];
+            byte[] newBuffer = new byte[(int)(newLength * WaveFormat.AverageBytesPerSecond + 0)];
             for(int i = 0; i < bufferLength; i++)
             {
                 newBuffer[i] = savedBuffer[(bufferLocation + i) % savedBuffer.Length];
@@ -57,7 +57,7 @@ namespace NAudioTesting
             //Might want to make the read sections as small as possible, so make it repeatedly call read with blocks of 2 eventually?
 
             //int bytesRead = 0;
-            for (int i = 0; i < buffer.Length; i++)
+            for (int i = offset; i < count; i++)
             {
                 //if(buffer[convertedBuffer[i]] != 0)
                 //{
@@ -90,6 +90,8 @@ namespace NAudioTesting
             tempStream.Write(tempBuffer, 0, bufferLocation);
             RawSourceWaveStream returnStream = new RawSourceWaveStream(tempStream, WaveFormat);
             returnStream.Position = 0;
+
+            //Should delete itself and replace itself with the newly saved file
             return returnStream;
         }
     }

@@ -30,7 +30,25 @@ namespace NAudioTesting
                 ((TempFilePlayer)filePlayer).saveToFile(saveDialog.FileName);
             }
 
-            
+            private void FileNameLabel_Click(object sender, EventArgs e)
+            {
+
+            }
+
+            public void DeleteBarItem()
+            {
+                MainForm.main.ToolsContainer.Controls.Remove(this);
+                filePlayer.Dispose();
+                Dispose();
+                FileVisualizer.DeleteData();
+                FileVisualizer.Dispose();
+                
+            }
+
+            private void deleteToolStripMenuItem_Click_1(object sender, EventArgs e)
+            {
+                DeleteBarItem();
+            }
         }
     }
 }

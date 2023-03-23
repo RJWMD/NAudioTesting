@@ -89,7 +89,7 @@ namespace NAudioTesting
             this.ClipLength.Size = new System.Drawing.Size(68, 26);
             this.ClipLength.TabIndex = 6;
             this.ClipLength.Value = new decimal(new int[] {
-            30,
+            5,
             0,
             0,
             0});

@@ -50,7 +50,7 @@ namespace NAudioTesting
         //Add a way for more than 1 tracker to exist at once
         public bool updateTracker()
         {
-            if (stream == null)
+            if (stream == null || stream.TotalTime.TotalMilliseconds == 0)
                 return true;
             int xPosition = (int)((((((DateTime.Now - startTime).TotalMilliseconds) / (stream.TotalTime.TotalMilliseconds)) 
                                     % (1 * (endPosition - startPosition))) + startPosition) * Width);
@@ -175,6 +175,15 @@ namespace NAudioTesting
             clicked?.Invoke(args);
         }
 
+        public void DeleteData()
+        {
+            waveStream.Dispose();
+            stream?.Dispose();
+            stream?.Close();
+            savedMap = null;
+            stream = null;
+            waveStream = null;
+        }
         
     }
 }

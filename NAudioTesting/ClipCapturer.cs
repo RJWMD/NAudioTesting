@@ -26,7 +26,7 @@ namespace NAudioTesting
                 return buffer.bufferLength;
             }
         }
-        private float _clipLength = 15;
+        private float _clipLength = 5;
 
         public BufferSaver buffer
         {
@@ -77,6 +77,7 @@ namespace NAudioTesting
             GridElements.TempFilePlayerBlock newBlock = new GridElements.TempFilePlayerBlock();
             newBlock.FilePlayer.fileReader = new LoopWrapper(buffer.exportBuffer());
             MainForm.main.ToolsContainer.Controls.Add(newBlock);
+            
             newBlock.FileVisualizer.generateMap();
             newBlock.FileVisualizer.WaveStream = newBlock.FilePlayer.getWaveStream();
             newBlock.FileVisualizer.stream = newBlock.FilePlayer.fileReader;

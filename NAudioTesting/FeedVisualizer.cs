@@ -63,7 +63,7 @@ namespace NAudioTesting
             partialData.AddRange(data);
             if(partialData.Count >= bytesPerPixel)
             {
-                addNewData(partialData.GetRange(0, bytesPerPixel).ToArray(), 0, bytesPerPixel);
+                addNewData(partialData.GetRange(0, bytesPerPixel).ToArray(), 0, bytesPerPixel * Width);
                 partialData.RemoveRange(0, bytesPerPixel);
             }
         }
@@ -74,14 +74,14 @@ namespace NAudioTesting
             int pixelsToProcess = data.Length / bytesPerPixel;
             for (int i = 0; i < pixelsToProcess; i++)
             {
-                byte[] pixelData = new byte[bytesPerPixel];
-                for(int j = bytesPerPixel * i; j < bytesPerPixel +1; j++)
-                {
-                    pixelData[i / bytesPerPixel] = data[j];
-                }
+                //byte[] pixelData = new byte[bytesPerPixel];
+                //for(int j = bytesPerPixel * i; j < bytesPerPixel +1; j++)
+                //{
+                //    pixelData[i / bytesPerPixel] = data[j];
+                //}
                 short low = 0;
                 short high = 0;
-                for (int n = 0; n < data.Length; n += 2)
+                for (int n = 0; n < data.Length; n += format.Channels)
                 {
                     short sample = BitConverter.ToInt16(data, n);
                     if (sample < low) low = sample;
