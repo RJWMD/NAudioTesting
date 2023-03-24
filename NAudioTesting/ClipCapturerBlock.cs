@@ -35,14 +35,15 @@ namespace NAudioTesting
             {
                 InitializeComponent();
                 capturer = new ClipCapturer(Program.audioHandler);
-                capturer.buffer.newDataChunk += feedVisualizer1.addNewData;
+                //capturer.buffer.newDataChunk += feedVisualizer1.addNewData;
                 //Program.audioHandler.finalOutput.newData += feedVisualizer1.newPartialData;
                 feedVisualizer1.format = capturer.buffer.WaveFormat;
+                setEvents(this, new EventArgs());
                 Program.audioHandler.stopAllSound += setEvents;
             }
             public void setEvents(object sender, EventArgs args)
             {
-                capturer.buffer.newDataChunk += feedVisualizer1.addNewData;
+                capturer.buffer.newDataChunk += feedVisualizer1.newPartialData;
             }
 
             private void Capture_Click(object sender, EventArgs e)

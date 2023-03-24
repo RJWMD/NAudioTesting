@@ -24,9 +24,18 @@ namespace NAudioTesting
 
         public (float min, float max)[] savedMap;
         public int position = 0;
-        int partialDataProgress = 0;
+
         public int samplesPerPixel;
 
+        List<byte> partialData = new List<byte>();
+
+        int bytesPerPixel
+        {
+            get
+            {
+                return (int)(bufferTime / Width * format.AverageBytesPerSecond);
+            }
+        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -50,18 +59,14 @@ namespace NAudioTesting
             savedMap = new (float min, float max)[Width];
         }
 
-        List<byte> partialData = new List<byte>();
-        int bytesPerPixel
-        {
-            get
-            {
-                return (int)(bufferTime / Width * format.AverageBytesPerSecond);
-            }
-        }
+        
+     
+
+        //If the read size is smaller than data per pixel, it will wait until enough data is available
         public void newPartialData(byte[] data, int offset, int count)
         {
             partialData.AddRange(data);
-            if(partialData.Count >= bytesPerPixel)
+            while(partialData.Count >= bytesPerPixel)
             {
                 addNewData(partialData.GetRange(0, bytesPerPixel).ToArray(), 0, bytesPerPixel * Width);
                 partialData.RemoveRange(0, bytesPerPixel);
@@ -83,16 +88,15 @@ namespace NAudioTesting
                 short high = 0;
                 for (int n = 0; n < data.Length; n += format.Channels)
                 {
+                    if ((data.Length - n) < 2)
+                        continue;
                     short sample = BitConverter.ToInt16(data, n);
                     if (sample < low) low = sample;
                     if (sample > high) high = sample;
                 }
                 float lowPercent = ((((float)low) - short.MinValue) / ushort.MaxValue);
                 float highPercent = ((((float)high) - short.MinValue) / ushort.MaxValue);//Seems to pick up a lot of lound notes that arent there
-                if(lowPercent < 0 || highPercent > 1)
-                {
 
-                }
                 savedMap[position].min = lowPercent;
                 savedMap[position].max = highPercent;
                 position++;

@@ -105,6 +105,10 @@ namespace NAudioTesting
             {
                 for(int x = e.ClipRectangle.X; x < e.ClipRectangle.Right; x++)
                 {
+                    if(savedMap == null && WaveStream != null)
+                    {
+                        generateMap();
+                    }
                     if(x < savedMap.Length)
                     {
                         e.Graphics.DrawLine(Pens.Black, x, Height * savedMap[x].min, x, Height * savedMap[x].max);

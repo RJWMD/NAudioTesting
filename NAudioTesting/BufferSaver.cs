@@ -54,9 +54,12 @@ namespace NAudioTesting
         {
             if (!recording)
                 return input.Read(buffer, offset, count);
+
+            byte[] readSection = new byte[count];
             //Might want to make the read sections as small as possible, so make it repeatedly call read with blocks of 2 eventually?
 
             //int bytesRead = 0;
+            int zeroIndexSection = 0;
             for (int i = offset; i < count; i++)
             {
                 //if(buffer[convertedBuffer[i]] != 0)
@@ -66,11 +69,13 @@ namespace NAudioTesting
                 savedBuffer[bufferLocation] = buffer[i];//(int)buffer[i];
                 bufferLocation++;
                 bufferLocation %= savedBuffer.Length;
+                readSection[zeroIndexSection] = buffer[i];
+                zeroIndexSection++;   
                 //bytesRead += input.Read(buffer, bytesRead + offset, 2);
                 //if (i > 0 && i % 2 == 0)
                 //    newData?.Invoke(new byte[] { buffer[i -1], buffer[i] }, 0, 1);
             }
-            newDataChunk?.Invoke(buffer, offset, count);
+            newDataChunk?.Invoke(readSection, offset, count);
             return input.Read(buffer, offset, count);
            // return bytesRead;
         }

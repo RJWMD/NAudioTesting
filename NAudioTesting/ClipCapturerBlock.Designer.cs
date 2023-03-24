@@ -78,6 +78,7 @@ namespace NAudioTesting
             // 
             // ClipLength
             // 
+            this.ClipLength.DecimalPlaces = 4;
             this.ClipLength.Location = new System.Drawing.Point(206, 95);
             this.ClipLength.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ClipLength.Minimum = new decimal(new int[] {
