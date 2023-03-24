@@ -30,7 +30,9 @@ namespace NAudioTesting
                 if (fileReader == null)
                     return;
                 if (providedWave != null && !stackAudio)
+                {
                     audioHandler.removeInputFromMixer(providedWave);
+                }
                 providedWave = new MediaFoundationResampler(fileReader, Program.audioHandler.mixerProvider.WaveFormat).ToSampleProvider();
                 //The above works because it is the resampler, not the reader
                 audioHandler.addInputToMixer(providedWave);

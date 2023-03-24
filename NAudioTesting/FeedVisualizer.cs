@@ -40,6 +40,7 @@ namespace NAudioTesting
         protected override void OnPaint(PaintEventArgs e)
         {
             (float min, float max)[] tempMap = new (float min, float max)[savedMap.Length];
+            //Makes the data continuous from 0 - end. Before it would start position - end, 0 - position
             for(int i = 0; i < savedMap.Length; i++)
             {
                 tempMap[i] = savedMap[(position + i) % savedMap.Length];
@@ -79,14 +80,9 @@ namespace NAudioTesting
             int pixelsToProcess = data.Length / bytesPerPixel;
             for (int i = 0; i < pixelsToProcess; i++)
             {
-                //byte[] pixelData = new byte[bytesPerPixel];
-                //for(int j = bytesPerPixel * i; j < bytesPerPixel +1; j++)
-                //{
-                //    pixelData[i / bytesPerPixel] = data[j];
-                //}
                 short low = 0;
                 short high = 0;
-                for (int n = 0; n < data.Length; n += format.Channels)
+                for (int n = 0; n < data.Length; n += 2)
                 {
                     if ((data.Length - n) < 2)
                         continue;

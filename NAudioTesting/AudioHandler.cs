@@ -18,16 +18,15 @@ namespace NAudioTesting
 {
     public class AudioHandler
     {
-        public WasapiLoopbackCapture speakerCapture = new WasapiLoopbackCapture();
+        //Higher rates may make it more costly. Maybe make a menu for choosing between 44100, 48000, and 96000?
+        //44100 has half the visualizer issue, and its more predictable. This only applies for data from the mic though. Data from files still have issues with this.
+        public WaveFormat waveFormat = WaveFormat.CreateIeeeFloatWaveFormat(48000, 2);
         public WaveOutEvent output = new WaveOutEvent();
         public List<IWaveProvider> allAudioBeingPlayed;
-        //MixingSampleProvider mixer;
-        //public BufferedWaveProvider buffer;
         public WaveProvider32 waveProvider;
-        //WaveMixerStream32 mixer;
+        
         public MixingSampleProvider mixerProvider;
-        //public BufferSaver finalOutput;
-        public WaveIn waveIn;
+
         public WaveInEvent micRecorder;
         public List<SoundModifier> audioModifiers = new List<SoundModifier>();
         public event EventHandler stopAllSound;
@@ -106,22 +105,27 @@ namespace NAudioTesting
             {
                 output.DeviceNumber = 0;
             }
-            mixerProvider = new MixingSampleProvider(speakerCapture.WaveFormat)
+            //WaveFormat tester = WaveFormat.CreateIeeeFloatWaveFormat(96000, 2);
+            mixerProvider = new MixingSampleProvider(waveFormat)
             {
                 ReadFully = true
             };
             //finalOutput = new BufferSaver(mixerProvider.ToWaveProvider());
             output.Stop();
             //output.Init(mixerProvider);
-            output.Init(mixerProvider.ToWaveProvider());
+            applyModifiers();
+
+            //output.Init(mixerProvider.ToWaveProvider());
             micRecorder = new WaveInEvent()
             {
-                WaveFormat = output.OutputWaveFormat,
+                WaveFormat = waveFormat,
                 BufferMilliseconds = 25
             };
             micRecorder.StartRecording();
             //mixerProvider.AddMixerInput(new WaveInProvider(speakerCapture));
-            mixerProvider.AddMixerInput(new WaveInProvider(micRecorder));
+            //mixerProvider.AddMixerInput(new WaveInProvider(micRecorder));
+            ///Problems with the visualizer persist even without the mixer. Problem also goes away once it is saved to file. The only noticeable affect on audio the problem has is a ringing noise that only plays when something should be playing audio
+            addInputToMixer(new WaveInProvider(micRecorder).ToSampleProvider());
             output.Play();
 
         }
@@ -154,7 +158,10 @@ namespace NAudioTesting
                 WaveFormat = output.OutputWaveFormat
             };
             micRecorder.StartRecording();
-            mixerProvider.AddMixerInput(new WaveInProvider(micRecorder));
+            //mixerProvider.AddMixerInput(new WaveInProvider(micRecorder));
+            addInputToMixer(new WaveInProvider(micRecorder).ToSampleProvider());
+
+            applyModifiers();
 
             stopAllSound?.Invoke(this, new EventArgs());
         }

@@ -78,7 +78,7 @@ namespace NAudioTesting
             newBlock.FilePlayer.fileReader = new LoopWrapper(buffer.exportBuffer());
             MainForm.main.ToolsContainer.Controls.Add(newBlock);
             
-            newBlock.FileVisualizer.generateMap();
+            //newBlock.FileVisualizer.generateMap();
             newBlock.FileVisualizer.WaveStream = newBlock.FilePlayer.getWaveStream();
             newBlock.FileVisualizer.stream = newBlock.FilePlayer.fileReader;
             newBlock.FileVisualizer.generateMap();

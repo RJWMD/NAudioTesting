@@ -17,13 +17,13 @@ namespace NAudioTesting
     {
         public Action<MouseEventArgs> clicked;
         private int bytesPerSample;
-        public WaveStream waveStream;
+        private WaveStream _waveStream;
         public WaveStream WaveStream
         {
-            get { return waveStream; }
+            get { return _waveStream; }
             set 
             {
-                waveStream = value; 
+                _waveStream = value; 
                 if(WaveStream != null)
                 {
                     bytesPerSample = (WaveStream.WaveFormat.BitsPerSample / 8) * WaveStream.WaveFormat.Channels;
@@ -181,12 +181,12 @@ namespace NAudioTesting
 
         public void DeleteData()
         {
-            waveStream.Dispose();
+            WaveStream.Dispose();
             stream?.Dispose();
             stream?.Close();
             savedMap = null;
             stream = null;
-            waveStream = null;
+            WaveStream = null;
         }
         
     }
